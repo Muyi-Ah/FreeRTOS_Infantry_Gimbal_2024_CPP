@@ -1,0 +1,27 @@
+freertos_infantry_gimbal_2024_cpp/gravity_compensation.o: \
+  ..\src\component\gravity_compensation.cpp \
+  ..\src\component\gravity_compensation.hpp \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\arm_math.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\arm_math_types.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\arm_math_memory.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\none.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\utils.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\basic_math_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\interpolation_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\bayes_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\statistics_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\fast_math_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\matrix_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\complex_math_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\controller_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\support_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\distance_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\svm_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\svm_defines.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\transform_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\filtering_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\quaternion_math_functions.h \
+  ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\window_functions.h \
+  ..\src\device\CH110\ch110.hpp ..\utils\simple_math.hpp
