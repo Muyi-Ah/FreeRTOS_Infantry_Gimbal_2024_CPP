@@ -134,11 +134,15 @@ int32_t DjiMotor::AbsoluteErrorCompute(uint16_t target, enum DirectionType direc
 extern DjiMotor dji_motor_list[];
 extern const size_t kMotorCount;
 extern CanManager can_motor;
-
+/**
+ * @brief 电机控制数据发送
+ * 
+ */
 void DjiMotorSend() {
 
     uint8_t motor_tx_buf[2][8];  //@notice 第一个是0x200用的，第二个是0x1FF用的
 
+    //各电机输入值写入电机控制报文
     for (size_t i = 0; i < kMotorCount; i++) {
         switch (dji_motor_list[i].get_recv_id()) {
             case 0x201:

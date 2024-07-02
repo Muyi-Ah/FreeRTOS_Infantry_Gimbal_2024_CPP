@@ -63,7 +63,7 @@ int32_t trigger_target_pos;   //拨盘目标位置
 /*  =========================== 函数定义 ===========================  */
 
 /**
- * @brief 
+ * @brief 云台任务
  * 
  * @param argument 
  */
@@ -219,7 +219,7 @@ static void RemoteTargetHandle() {
 }
 
 /**
- * @brief 
+ * @brief 停止模式
  * 
  */
 void HaltFunction() {
@@ -325,6 +325,10 @@ void SubMode33Function() {
     }
 }
 
+/**
+ * @brief 时间戳清除
+ * 
+ */
 void TimeStampClear() {
     if (state_machine.get_sub_state() != kSubMode11) {
         enter_mode_11_timestamp = 0;
@@ -365,7 +369,7 @@ void TimeStampClear() {
 }
 
 /**
- * @brief 
+ * @brief 子模式更新
  * 
  */
 void SubStateUpdate() {
