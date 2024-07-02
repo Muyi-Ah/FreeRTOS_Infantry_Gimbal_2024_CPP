@@ -1,14 +1,3 @@
-/**
- * @file crc.c
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
- * @date 2024-06-27
- * 
- * @copyright Copyright (c) 2024
- * 
- */
-
 #include "crc.hpp"
 
 // crc8 generator polynomial:G(x)=x8+x5+x4+1

@@ -5,6 +5,11 @@ StateMachine::StateMachine(/* args */) {}
 
 StateMachine::~StateMachine() {}
 
+/**
+ * @brief 状态机事件处理
+ * 
+ * @param event 状态事件
+ */
 void StateMachine::HandleEvent(enum Event event) {
     switch (main_state_) {
 

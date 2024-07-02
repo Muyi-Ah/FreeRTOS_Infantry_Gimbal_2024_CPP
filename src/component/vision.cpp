@@ -5,6 +5,11 @@ Vision::Vision(/* args */) {}
 
 Vision::~Vision() {}
 
+/**
+ * @brief 视觉数据更新
+ * 
+ * @param rx_buf 数据地址
+ */
 void Vision::DataUpdate(volatile const uint8_t* rx_buf) {
 
     auto recvParamCnt =
@@ -19,7 +24,7 @@ void Vision::DataUpdate(volatile const uint8_t* rx_buf) {
         is_fire_ = false;
         return;
     }
-
+    //数据全为0则认为接受失败
     if (robot_hub_yaw_error_ == 0 && robot_hub_pitch_error_ == 0 && armor_yaw_error_ == 0 &&
         armor_pitch_error_ == 0) {
         is_aimed_ = false;
