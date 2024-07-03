@@ -73,7 +73,7 @@ void CanManager::Send(const CAN_TxHeaderTypeDef* tx_header, const uint8_t* tx_bu
  * @brief 
  * 
  */
-void CanManager::Init() {
+void CanManager::CanInit() {
 
     CheckPointer(hcan_);    //检查地址
     CheckPointer(filter_);  //检查地址

@@ -10,7 +10,7 @@ extern DjiMotor* dji_motor_list[];   //定义在init.cpp
 extern const size_t kMotorCount;     //定义在init.cpp
 extern DR16 dr16;                    //定义在init.cpp
 extern CH110 ch110;                  //定义在init.cpp
-extern Communication communication;  //定义在init.cpp
+extern Communicator communicator;  //定义在init.cpp
 extern Vision vision;                //定义在init.cpp
 
 /**
@@ -116,8 +116,8 @@ void ErrorDetection() {
     }
 
     //板间通信错误判断
-    if (communication.get_is_reply()) {
-        communication.set_is_reply(false);  //清除应答标志位
+    if (communicator.get_is_reply()) {
+        communicator.set_is_reply(false);  //清除应答标志位
     } else {
         ErrorHandle(kComuError);
     }

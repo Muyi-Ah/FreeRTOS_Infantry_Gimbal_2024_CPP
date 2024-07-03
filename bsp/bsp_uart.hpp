@@ -23,7 +23,7 @@ class UartManager {
 
     virtual void Send() = 0;  //UART发送虚函数
 
-    void Init();
+    void UartInit();
     auto get_huart() { return huart_; };
     auto get_rx_buf_address() { return rx_buf_addr_; };
     auto get_rx_size() { return rx_size_; };

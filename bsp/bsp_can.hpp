@@ -14,5 +14,5 @@ class CanManager {
     CanManager(CAN_HandleTypeDef* hcan, CAN_FilterTypeDef* filter);
 
     void Send(const CAN_TxHeaderTypeDef* tx_header, const uint8_t* tx_buf);
-    void Init();
+    void CanInit();
 };

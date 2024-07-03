@@ -106,11 +106,11 @@ EmpiricalGravityCompensator EGC(1000);  //经验重力补偿对象
  * 
  */
 void init() {
-    can_motor.Init();
-    can_ch110.Init();
-    dr16.Init();
-    communicator.Init();
-    vision.Init();
+    dji_motor_201.CanInit();//@warning 一个电机进行CanInit即可 不要多个电机运行CanInit 因为这几个电机都使用同一个CAN
+    ch110.CanInit();
+    dr16.UartInit();
+    communicator.UartInit();
+    vision.UartInit();
 
     HAL_TIM_Base_Start_IT(&htim6);  //@warning 完成各模块初始化后再启动定时器中断
 }

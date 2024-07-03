@@ -54,7 +54,7 @@ void UartRxIdleCallback(UART_HandleTypeDef* huart, uint16_t Size) {
  * @brief 
  * 
  */
-void UartManager::Init() {
+void UartManager::UartInit() {
     CheckPointer(huart_);        //检查地址
     CheckPointer(rx_buf_addr_);  //检查地址
 

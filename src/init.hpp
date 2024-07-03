@@ -35,9 +35,6 @@ extern DjiMotor dji_motor_206;
 
 extern DjiMotor* dji_motor_list[];
 
-extern CanManager can_motor;
-extern CanManager can_ch110;
-
 extern StateMachine state_machine;
 extern Communicator communicator;
 extern Vofa vofa;
