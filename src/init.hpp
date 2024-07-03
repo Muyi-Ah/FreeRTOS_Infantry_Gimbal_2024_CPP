@@ -3,8 +3,6 @@
 
 #include "DJI_motor.hpp"
 #include "LPF.hpp"
-#include "bsp_can.hpp"
-#include "bsp_uart.hpp"
 #include "ch110.hpp"
 #include "communication.hpp"
 #include "dr16.hpp"
@@ -40,12 +38,8 @@ extern DjiMotor* dji_motor_list[];
 extern CanManager can_motor;
 extern CanManager can_ch110;
 
-extern UartManager uart_remote;
-extern UartManager uart_communication;
-extern UartManager uart_vision;
-
 extern StateMachine state_machine;
-extern Communication communication;
+extern Communicator communicator;
 extern Vofa vofa;
 extern Vision vision;
 extern CH110 ch110;

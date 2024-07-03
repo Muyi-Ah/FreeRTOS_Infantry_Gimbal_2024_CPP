@@ -1,7 +1,8 @@
 #pragma once
 #include "stdint.h"
+#include "bsp_uart.hpp"
 
-class DR16 {
+class DR16 : public UartManager {
    private:
     bool is_reply_ = false;  //DR16接收机应答标志位
 
@@ -43,10 +44,11 @@ class DR16 {
         } key_;
     } key_board_;
 
-    DR16(/* args */);
-    ~DR16();
+    using UartManager::UartManager;
 
-    void DataUpdate(volatile const uint8_t* buf);
+    void Send() override{};
+
+    void DataUpdate();
 
     auto get_is_reply() { return is_reply_; };
 

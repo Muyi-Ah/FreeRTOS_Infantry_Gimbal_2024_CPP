@@ -9,11 +9,9 @@ class CanManager {
    private:
     CAN_HandleTypeDef* hcan_ = nullptr;
     CAN_FilterTypeDef* filter_ = nullptr;
-    // CAN_TxHeaderTypeDef* tx_header_ = nullptr;
 
    public:
     CanManager(CAN_HandleTypeDef* hcan, CAN_FilterTypeDef* filter);
-    ~CanManager();
 
     void Send(const CAN_TxHeaderTypeDef* tx_header, const uint8_t* tx_buf);
     void Init();

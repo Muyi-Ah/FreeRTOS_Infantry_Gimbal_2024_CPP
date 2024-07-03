@@ -11,18 +11,20 @@ const uint16_t kCommunicationReciveDataLength = 15;  //@config 板间通信数�
 const uint16_t kVisionReceiveDataLength = 23;  //@config 视觉通信数据长度
 
 class UartManager {
-   private:
+   protected:
     UART_HandleTypeDef* huart_ = nullptr;
-    uint8_t* rx_buf_address = nullptr;
+    uint8_t* rx_buf_addr_ = nullptr;
     size_t rx_size_ = 0;
+    size_t tx_size_ = 0;
 
    public:
-    UartManager(UART_HandleTypeDef* huart, size_t rx_size);
+    UartManager(UART_HandleTypeDef* huart, size_t rx_size = 0);
     ~UartManager();
 
-    void Send(const uint8_t* tx_buf, size_t size);
+    virtual void Send() = 0;  //UART发送虚函数
+
     void Init();
-    auto get_huart(){return huart_;};
-    auto get_rx_buf_address() { return rx_buf_address; };
+    auto get_huart() { return huart_; };
+    auto get_rx_buf_address() { return rx_buf_addr_; };
     auto get_rx_size() { return rx_size_; };
 };

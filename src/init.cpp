@@ -19,26 +19,6 @@ PidController vision_pid_pos_206(0, 0, 0, 0, 0, 0, 0);  //PITCH视觉外环（�
 PidController vision_pid_vel_206(0, 0, 0, 0, 0, 0, 0);  //PITCH视觉内环（速度）PID
 
 //  ==================== DJI电机对象创建 ====================  //
-//parameter: 电机ID
-
-DjiMotor dji_motor_201(0x201);
-DjiMotor dji_motor_202(0x202);
-DjiMotor dji_motor_203(0x203);
-DjiMotor dji_motor_205(0x205);
-DjiMotor dji_motor_206(0x206);
-
-//@config 放入电机对象结构体地址
-DjiMotor* dji_motor_list[] = {&dji_motor_201, &dji_motor_202, &dji_motor_203, &dji_motor_205,
-                              &dji_motor_206};
-
-//计算出电机个数供其他文件使用
-extern const size_t kMotorCount = sizeof(dji_motor_list) / sizeof(dji_motor_list[0]);
-/*
- * @notice C++和C的const在文件可见性上不一样，C++的const可见性为本文件，
- * 因此若要在其他地方使用extern来使用该变量了，则需要在定义时加上extern
- */
-
-//  ==================== CAN对象创建 ====================  //
 
 CAN_FilterTypeDef can_filter1 = {
     .FilterIdHigh = 0x0000,
@@ -53,6 +33,27 @@ CAN_FilterTypeDef can_filter1 = {
     .SlaveStartFilterBank = 14,
 };
 
+//parameter: CAN_HandleTypeDef*, CAN_FilterTypeDef*, 电机ID
+
+DjiMotor dji_motor_201(kCanMotor, &can_filter1, 0x201);
+DjiMotor dji_motor_202(kCanMotor, &can_filter1, 0x202);
+DjiMotor dji_motor_203(kCanMotor, &can_filter1, 0x203);
+DjiMotor dji_motor_205(kCanMotor, &can_filter1, 0x205);
+DjiMotor dji_motor_206(kCanMotor, &can_filter1, 0x206);
+
+//@config 放入电机对象结构体地址
+DjiMotor* dji_motor_list[] = {&dji_motor_201, &dji_motor_202, &dji_motor_203, &dji_motor_205,
+                              &dji_motor_206};
+
+//计算出电机个数供其他文件使用
+extern const size_t kMotorCount = sizeof(dji_motor_list) / sizeof(dji_motor_list[0]);
+/*
+ * @notice C++和C的const在文件可见性上不一样，C++的const可见性为本文件，
+ * 因此若要在其他地方使用extern来使用该变量了，则需要在定义时加上extern
+ */
+
+//  ==================== CH110对象创建 ====================  //
+
 CAN_FilterTypeDef can_filter2 = {
     .FilterIdHigh = 0x0000,
     .FilterIdLow = 0x0000,
@@ -66,26 +67,29 @@ CAN_FilterTypeDef can_filter2 = {
     .SlaveStartFilterBank = 14,
 };
 
-//parameter: hcan实例, 滤波器结构体
+//parameter: CAN_HandleTypeDef*, CAN_FilterTypeDef*
 
-CanManager can_motor(kCanMotor, &can_filter1);
-CanManager can_ch110(kCanCh110, &can_filter2);
-
-//  ==================== UART对象创建 ====================  //
-//parameter: huart实例, 接收数据长度
-
-UartManager uart_remote(kUartRemote, kRemoteDataLength);
-UartManager uart_communication(kUartCommunication, kCommunicationReciveDataLength);
-UartManager uart_vision(kUartVision, kVisionReceiveDataLength);
+CH110 ch110(kCanCh110, &can_filter2);
 
 //  ==================== 其他对象创建 ====================  //
 
-StateMachine state_machine;   //状态机对象
-Communication communication;  //板间通信对象
-Vofa vofa(kUartVision, 1);    //VOFA对象 @config 需要修改值
-Vision vision;                //视觉对象
-CH110 ch110;                  //CH110对象
-DR16 dr16;                    //DR16对象
+StateMachine state_machine;  //状态机对象
+
+//parameter: UART_HandleTypeDef*, 数据接收字节数
+
+DR16 dr16(kUartRemote, kRemoteDataLength);  //DR16对象
+
+//parameter: UART_HandleTypeDef*, 数据接收字节数
+
+Communicator communicator(kUartCommunication, kCommunicationReciveDataLength);  //板间通信对象
+
+//parameter: UART_HandleTypeDef*, 数据接收字节数
+
+Vision vision(kUartVision, kVisionReceiveDataLength);  //视觉对象
+
+//parameter: UART_HandleTypeDef*, 发送数据个数(float), 数据接收字节数
+
+Vofa vofa(kUartVision, 1);  //VOFA对象 @config 需要修改值
 
 //parameter: Alpha系数
 
@@ -104,9 +108,9 @@ EmpiricalGravityCompensator EGC(1000);  //经验重力补偿对象
 void init() {
     can_motor.Init();
     can_ch110.Init();
-    uart_remote.Init();
-    uart_communication.Init();
-    uart_vision.Init();
+    dr16.Init();
+    communicator.Init();
+    vision.Init();
 
     HAL_TIM_Base_Start_IT(&htim6);  //@warning 完成各模块初始化后再启动定时器中断
 }

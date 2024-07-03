@@ -4,11 +4,15 @@
 #include "error_handle.hpp"
 #include "stdlib.h"
 
-DjiMotor::DjiMotor(uint32_t receive_id) {
-    receive_id_ = receive_id;
-}
-
-DjiMotor::~DjiMotor() {}
+/**
+ * @brief Construct a new Dji Motor:: Dji Motor object
+ * 
+ * @param hcan CAN_HandleTypeDef的指针
+ * @param filter CAN_FilterTypeDef的指针
+ * @param receive_id 电机接收ID
+ */
+DjiMotor::DjiMotor(CAN_HandleTypeDef* hcan, CAN_FilterTypeDef* filter, uint32_t receive_id)
+    : CanManager(hcan, filter), receive_id_(receive_id) {}
 
 /**
  * @brief 编码器积分误差计算

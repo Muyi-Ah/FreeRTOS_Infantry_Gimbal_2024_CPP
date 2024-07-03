@@ -1,19 +1,18 @@
 #include "vision.hpp"
 #include "stdio.h"
 
-Vision::Vision(/* args */) {}
-
-Vision::~Vision() {}
+Vision::Vision(UART_HandleTypeDef* huart, size_t rx_size)
+    : UartManager(huart, rx_size) {}
 
 /**
  * @brief 视觉数据更新
  * 
  * @param rx_buf 数据地址
  */
-void Vision::DataUpdate(volatile const uint8_t* rx_buf) {
+void Vision::DataUpdate() {
 
     auto recvParamCnt =
-        sscanf((const char*)rx_buf, "[%4hu/%4hu/%4hu/%4hu/%1hu]", &robot_hub_yaw_error_,
+        sscanf((const char*)rx_buf_addr_, "[%4hu/%4hu/%4hu/%4hu/%1hu]", &robot_hub_yaw_error_,
                &robot_hub_pitch_error_, &armor_yaw_error_, &armor_pitch_error_, &fire_flag_);
 
     is_aimed_ = false;  // 假设接收失败
@@ -45,4 +44,8 @@ void Vision::DataUpdate(volatile const uint8_t* rx_buf) {
         yaw_error_ = (float)(armor_yaw_error_ - 1000);
         pitch_error_ = (float)(armor_pitch_error_ - 1000);
     }
+}
+
+void Vision::Send() {
+    /* code */
 }

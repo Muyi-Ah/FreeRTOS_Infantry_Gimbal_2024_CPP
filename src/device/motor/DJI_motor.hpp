@@ -1,4 +1,5 @@
 #pragma once
+#include "bsp_can.hpp"
 #include "stdint.h"
 
 enum DirectionType {
@@ -7,7 +8,7 @@ enum DirectionType {
     kCCW,
 };
 
-class DjiMotor {
+class DjiMotor : public CanManager {
    private:
     uint32_t receive_id_ = 0;               //接收ID
     volatile uint16_t encoder_value_ = 0;   //编码器值
@@ -22,8 +23,7 @@ class DjiMotor {
     int16_t IntegralErrorCompute();
 
    public:
-    DjiMotor(uint32_t receive_id);
-    ~DjiMotor();
+    DjiMotor(CAN_HandleTypeDef* hcan, CAN_FilterTypeDef* filter, uint32_t receive_id);
 
     void DataUpdate(volatile const uint8_t* buf);
     int32_t AbsoluteErrorCompute(uint16_t target, enum DirectionType direction);
