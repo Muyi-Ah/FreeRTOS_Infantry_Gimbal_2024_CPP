@@ -137,7 +137,7 @@ int32_t DjiMotor::AbsoluteErrorCompute(uint16_t target, enum DirectionType direc
 
 extern DjiMotor dji_motor_list[];
 extern const size_t kMotorCount;
-extern CanManager can_motor;
+extern DjiMotor dji_motor_201;
 /**
  * @brief 电机控制数据发送
  * 
@@ -244,6 +244,7 @@ void DjiMotorSend() {
     tx_header[1].DLC = 8;
     tx_header[1].TransmitGlobalTime = DISABLE;
 
-    can_motor.Send(&tx_header[0], motor_tx_buf[0]);
-    can_motor.Send(&tx_header[1], motor_tx_buf[1]);
+    //@warning 一个电机进行发送即可 不要多个电机对象发送 因为几个电机都使用同一个CAN
+    dji_motor_201.Send(&tx_header[0], motor_tx_buf[0]);
+    dji_motor_201.Send(&tx_header[1], motor_tx_buf[1]);
 }
