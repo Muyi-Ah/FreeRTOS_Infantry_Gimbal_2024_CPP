@@ -109,4 +109,6 @@ void TimerPeriodCallback() {
     }
 
     DjiMotorSend();  //电机控制报文发送
+
+    communicator.Send();
 }

@@ -45,3 +45,13 @@ extern LPF lpf_rpm_201;
 extern LPF lpf_rpm_202;
 extern LPF lpf_rpm_203;
 extern EmpiricalGravityCompensator EGC;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void Init();
+
+#ifdef __cplusplus
+}
+#endif

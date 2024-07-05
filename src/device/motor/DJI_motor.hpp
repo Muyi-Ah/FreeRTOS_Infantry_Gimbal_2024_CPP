@@ -46,3 +46,5 @@ class DjiMotor : public CanManager {
 };
 
 void DjiMotorSend();
+float EncoderToAngle(uint16_t encoder_value);
+float CalculateTheta(uint16_t encoder_value, uint16_t initial_value);

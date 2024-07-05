@@ -248,3 +248,32 @@ void DjiMotorSend() {
     dji_motor_201.Send(&tx_header[0], motor_tx_buf[0]);
     dji_motor_201.Send(&tx_header[1], motor_tx_buf[1]);
 }
+
+/// @brief 编码器值转角度值
+/// @param encoder_value 编码器值(0-8191)
+/// @return 角度值(0-360)
+float EncoderToAngle(uint16_t encoder_value)
+{
+    return ((float)encoder_value / 8192) * 360.0f;
+}
+
+
+/// @brief 计算夹角
+/// @param encoder_value 编码器值
+/// @param initial_value theta为0时对应的编码器值
+/// @return 夹角
+float CalculateTheta(uint16_t encoder_value, uint16_t initial_value)
+{
+    float current_angle = EncoderToAngle(encoder_value);
+    float initial_angle = EncoderToAngle(initial_value);
+
+    float theta = current_angle - initial_angle;
+
+    if (theta < 0) {
+        theta += 360.0f;
+    } else if (theta >= 360.0f) {
+        theta -= 360.0f;
+    }
+
+    return theta;
+}
