@@ -3,8 +3,6 @@
 
 #include "DJI_motor.hpp"
 #include "LPF.hpp"
-#include "bsp_can.hpp"
-#include "bsp_uart.hpp"
 #include "ch110.hpp"
 #include "communication.hpp"
 #include "dr16.hpp"
@@ -37,15 +35,8 @@ extern DjiMotor dji_motor_206;
 
 extern DjiMotor* dji_motor_list[];
 
-extern CanManager can_motor;
-extern CanManager can_ch110;
-
-extern UartManager uart_remote;
-extern UartManager uart_communication;
-extern UartManager uart_vision;
-
 extern StateMachine state_machine;
-extern Communication communication;
+extern Communicator communicator;
 extern Vofa vofa;
 extern Vision vision;
 extern CH110 ch110;
@@ -54,3 +45,13 @@ extern LPF lpf_rpm_201;
 extern LPF lpf_rpm_202;
 extern LPF lpf_rpm_203;
 extern EmpiricalGravityCompensator EGC;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void Init();
+
+#ifdef __cplusplus
+}
+#endif

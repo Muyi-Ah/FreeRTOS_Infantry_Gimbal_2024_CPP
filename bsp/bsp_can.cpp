@@ -8,15 +8,11 @@
  * 
  * @param hcan CAN_HandleTypeDef的指针
  * @param filter CAN_FilterTypeDef的指针
- * @param tx_header CAN_TxHeaderTypeDef的指针
  */
 CanManager::CanManager(CAN_HandleTypeDef* hcan, CAN_FilterTypeDef* filter) {
     hcan_ = hcan;
     filter_ = filter;
-    // tx_header_ = tx_header;
 }
-
-CanManager::~CanManager() {}
 
 extern const size_t kMotorCount;    //定义在init.cpp
 extern DjiMotor* dji_motor_list[];  //定义在init.cpp
@@ -77,7 +73,7 @@ void CanManager::Send(const CAN_TxHeaderTypeDef* tx_header, const uint8_t* tx_bu
  * @brief 
  * 
  */
-void CanManager::Init() {
+void CanManager::CanInit() {
 
     CheckPointer(hcan_);    //检查地址
     CheckPointer(filter_);  //检查地址

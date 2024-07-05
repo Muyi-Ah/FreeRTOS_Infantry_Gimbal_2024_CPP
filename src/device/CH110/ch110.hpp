@@ -1,7 +1,8 @@
 #pragma once
+#include "bsp_can.hpp"
 #include "stdint.h"
 
-class CH110 {
+class CH110 : public CanManager {
    private:
     volatile float roll_ = 0;
     volatile float pitch_ = 0;
@@ -19,8 +20,7 @@ class CH110 {
     float IntegralErrorCompute(float value, float* value_prev);
 
    public:
-    CH110(/* args */);
-    ~CH110();
+    using CanManager::CanManager;
 
     void EulerDataUpdate(const uint8_t* buf);
     void VelocityDataUpdate(const uint8_t* buf);

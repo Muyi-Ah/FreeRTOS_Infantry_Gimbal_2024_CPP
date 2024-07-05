@@ -4,11 +4,15 @@
 #include "error_handle.hpp"
 #include "stdlib.h"
 
-DjiMotor::DjiMotor(uint32_t receive_id) {
-    receive_id_ = receive_id;
-}
-
-DjiMotor::~DjiMotor() {}
+/**
+ * @brief Construct a new Dji Motor:: Dji Motor object
+ * 
+ * @param hcan CAN_HandleTypeDef的指针
+ * @param filter CAN_FilterTypeDef的指针
+ * @param receive_id 电机接收ID
+ */
+DjiMotor::DjiMotor(CAN_HandleTypeDef* hcan, CAN_FilterTypeDef* filter, uint32_t receive_id)
+    : CanManager(hcan, filter), receive_id_(receive_id) {}
 
 /**
  * @brief 编码器积分误差计算
@@ -133,7 +137,7 @@ int32_t DjiMotor::AbsoluteErrorCompute(uint16_t target, enum DirectionType direc
 
 extern DjiMotor dji_motor_list[];
 extern const size_t kMotorCount;
-extern CanManager can_motor;
+extern DjiMotor dji_motor_201;
 /**
  * @brief 电机控制数据发送
  * 
@@ -240,6 +244,36 @@ void DjiMotorSend() {
     tx_header[1].DLC = 8;
     tx_header[1].TransmitGlobalTime = DISABLE;
 
-    can_motor.Send(&tx_header[0], motor_tx_buf[0]);
-    can_motor.Send(&tx_header[1], motor_tx_buf[1]);
+    //@warning 一个电机进行发送即可 不要多个电机对象发送 因为几个电机都使用同一个CAN
+    dji_motor_201.Send(&tx_header[0], motor_tx_buf[0]);
+    dji_motor_201.Send(&tx_header[1], motor_tx_buf[1]);
+}
+
+/// @brief 编码器值转角度值
+/// @param encoder_value 编码器值(0-8191)
+/// @return 角度值(0-360)
+float EncoderToAngle(uint16_t encoder_value)
+{
+    return ((float)encoder_value / 8192) * 360.0f;
+}
+
+
+/// @brief 计算夹角
+/// @param encoder_value 编码器值
+/// @param initial_value theta为0时对应的编码器值
+/// @return 夹角
+float CalculateTheta(uint16_t encoder_value, uint16_t initial_value)
+{
+    float current_angle = EncoderToAngle(encoder_value);
+    float initial_angle = EncoderToAngle(initial_value);
+
+    float theta = current_angle - initial_angle;
+
+    if (theta < 0) {
+        theta += 360.0f;
+    } else if (theta >= 360.0f) {
+        theta -= 360.0f;
+    }
+
+    return theta;
 }

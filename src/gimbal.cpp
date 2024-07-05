@@ -71,34 +71,34 @@ void GimbalTask(void* argument) {
     for (;;) {
 
         //解决串口ORE问题
-        if (__HAL_UART_GET_FLAG(uart_remote.get_huart(), UART_FLAG_ORE) != RESET) {
+        if (__HAL_UART_GET_FLAG(dr16.get_huart(), UART_FLAG_ORE) != RESET) {
 
-            __HAL_UART_CLEAR_OREFLAG(uart_remote.get_huart());  //清除ORE位
+            __HAL_UART_CLEAR_OREFLAG(dr16.get_huart());  //清除ORE位
 
             //重新启动接收
-            HAL_UARTEx_ReceiveToIdle_DMA(uart_remote.get_huart(), uart_remote.get_rx_buf_address(),
-                                         uart_remote.get_rx_size());
+            HAL_UARTEx_ReceiveToIdle_DMA(dr16.get_huart(), dr16.get_rx_buf_address(),
+                                         dr16.get_rx_size());
         }
 
         //解决串口ORE问题
-        if (__HAL_UART_GET_FLAG(uart_communication.get_huart(), UART_FLAG_ORE) != RESET) {
+        if (__HAL_UART_GET_FLAG(communicator.get_huart(), UART_FLAG_ORE) != RESET) {
 
-            __HAL_UART_CLEAR_OREFLAG(uart_communication.get_huart());  //清除ORE位
+            __HAL_UART_CLEAR_OREFLAG(communicator.get_huart());  //清除ORE位
 
             //重新启动接收
-            HAL_UARTEx_ReceiveToIdle_DMA(uart_communication.get_huart(),
-                                         uart_communication.get_rx_buf_address(),
-                                         uart_communication.get_rx_size());
+            HAL_UARTEx_ReceiveToIdle_DMA(communicator.get_huart(),
+                                         communicator.get_rx_buf_address(),
+                                         communicator.get_rx_size());
         }
 
         //解决串口ORE问题
-        if (__HAL_UART_GET_FLAG(uart_vision.get_huart(), UART_FLAG_ORE) != RESET) {
+        if (__HAL_UART_GET_FLAG(vision.get_huart(), UART_FLAG_ORE) != RESET) {
 
-            __HAL_UART_CLEAR_OREFLAG(uart_vision.get_huart());  //清除ORE位
+            __HAL_UART_CLEAR_OREFLAG(vision.get_huart());  //清除ORE位
 
             //重新启动接收
-            HAL_UARTEx_ReceiveToIdle_DMA(uart_vision.get_huart(), uart_vision.get_rx_buf_address(),
-                                         uart_vision.get_rx_size());
+            HAL_UARTEx_ReceiveToIdle_DMA(vision.get_huart(), vision.get_rx_buf_address(),
+                                         vision.get_rx_size());
         }
 
         SubStateUpdate();  //子状态更新

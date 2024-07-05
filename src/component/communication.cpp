@@ -1,13 +1,12 @@
 #include "communication.hpp"
 
-Communication::Communication(/* args */) {}
+Communicator::Communicator(UART_HandleTypeDef* huart, size_t rx_size)
+    : UartManager(huart, rx_size) {}
 
-Communication::~Communication() {}
+void Communicator::Send(){
 
-void Communication::DataUpdate(volatile const uint8_t* rx_buf) {
-    //@develop
 }
 
-void Communication::Send() {
-    //@develop
+void Communicator::RecvDataUpdate(){
+    
 }
